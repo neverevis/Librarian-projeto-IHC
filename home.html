@@ -13,32 +13,36 @@
 
     <nav class="navbar navbar-dark navbar-bg navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand text-white" href="#">Librarian</a>
-
-          <!--Botão de expandir (quando colapsar)-->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="bi-list text-white"></i>
-          </button>
-
-          <div class="navbar-nav me-0" id="listaNavSemColapso">
-
+            <a class="navbar-brand text-white" href="home.html">
+              <div class="d-flex d-inline justify-content-center align-items-center">
+                  <i class="bi-book"></i>
+                  <h5 class="px-2 pt-1">Librarian</h5>
+              </div>
+            </a>
+  
+            <!--Botão de expandir (quando colapsar)-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="bi-list text-white"></i>
+            </button>
+  
+            <!-- Compatibilidade com colapso para telas pequenas-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+  
+              <!--Itens de navegação-->
+              <li class="nav-item">
+                  <a class="nav-link deslogado" href="cadastro.html">Cadastrar</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link deslogado" href="login.html">Fazer login</a>
+              </li>
+  
+              </ul>
+  
+            </div>
+  
           </div>
-
-          <!-- Compatibilidade com colapso para telas pequenas-->
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="">Sobre</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Categorias</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0" id="listaNav">
-            </ul>
-          </div>
-
-        </div>
       </nav>
 
       <div class="container text-white position-fixed start-100 top-0">
@@ -55,7 +59,7 @@
             </div>
 
             <div class="col-2">
-                <button id="btnAdicionar" class="btn btn-success"><i class="bi-plus-lg"></i></button>
+                <button id="btn_registrar" class="btn btn-success"><i class="bi-plus-lg"></i></button>
             </div>
         </section>
 
@@ -76,20 +80,37 @@
     </footer>
 
     <!--Modal para registrar filme-->
-    <div id="modal-registro" class="d-none bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center">
-        <div class="container-flex bg-white rounded-3 p-4 position-relative">
+    <div id="modal_registro" class="d-none bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center">
+        <div class="px-4 container bg-white rounded-3 p-4 position-relative">
 
-            <button onclick="fecharModalReg()" id="btnFecharReg" class="btn-close btn-sm position-absolute end-0 top-0 me-2 mt-2"></button>
+            <button onclick="fecharModalReg()" id="btn_fechar_registro" class="btn-close btn-sm position-absolute end-0 top-0 me-2 mt-2"></button>
 
             <h3 class="text-center">Registrar Livro</h3>
             <div class="row mt-5 d-flex align-items-center">
+
                 <div class="col-12">
                     <label class="form-label" for="text">Título</label>
                 </div>
                 <div class="col-12">
                     <input id="titulo" class="form-control" type="text">
                 </div>
+
+                <div class="col-12">
+                    <label class="form-label" for="text">Ano</label>
+                </div>
+                <div class="col-12">
+                    <input id="ano" class="form-control" type="text">
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label" for="text">Autor</label>
+                </div>
+                <div class="col-12">
+                    <input id="autor" class="form-control" type="text">
+                </div>
+
             </div>
+
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-12">
                     <label class="form-label" for="text">Categoria</label>
@@ -99,7 +120,6 @@
                         <option value="" selected disabled>Escolha uma Categoria...</option>
                         <option value="Ação">Ação</option>
                         <option value="Aventura">Aventura</option>
-                        <option value="Animação">Animação</option>
                         <option value="Comédia">Comédia</option>
                         <option value="Drama">Drama</option>
                         <option value="Romance">Romance</option>
@@ -108,31 +128,26 @@
                         <option value="Suspense">Suspense</option>
                         <option value="Mistério">Mistério</option>
                         <option value="Infantil">Infantil</option>
+                        <option value="Infantil">Acadêmico</option>
                     </select>
                 </div>
             </div>
+            
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-12">
-                    <label class="form-label" for="text">Sinopse</label>
+                    <label class="form-label" for="text">Capa (link da imagem)</label>
                 </div>
                 <div class="col-12">
-                    <input id="sinopse" class="form-control" type="text">
+                    <input id="capa" class="form-control" type="text" placeholder="Escala Recomendada 16:9">
                 </div>
             </div>
+
             <div class="row mt-4 d-flex align-items-center">
                 <div class="col-12">
-                    <label class="form-label" for="text">Link da imagem</label>
+                    <label class="form-label" for="text">Edição</label>
                 </div>
                 <div class="col-12">
-                    <input id="imagem" class="form-control" type="text" placeholder="Escala Recomendada 16:9">
-                </div>
-            </div>
-            <div class="row mt-4 d-flex align-items-center">
-                <div class="col-12">
-                    <label class="form-label" for="text">Duração do Filme</label>
-                </div>
-                <div class="col-12">
-                    <input id="duracao" class="form-control" type="text" placeholder="HH:MM">
+                    <input id="edicao" class="form-control" type="text" placeholder="20XX">
                 </div>
             </div>
 

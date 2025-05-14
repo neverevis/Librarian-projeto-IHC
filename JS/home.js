@@ -13,14 +13,6 @@ if(JSON.parse(localStorage.getItem("Contas")) !== null)
 else
     Contas = [];
 
-//definir elementos
-let btnAdicionar = document.getElementById("btnAdicionar");
-let btnFecharReg = document.getElementById("btnFecharReg");
-let btnModalAdd = document.getElementById("btnModalAdd");
-let pesquisa = document.getElementById('pesquisa');
-
-let ContaLogada;
-
 //verificar se há contas logadas (salva informações da conta logada em Conta)
 for(conta of Contas)
 {
@@ -31,35 +23,24 @@ for(conta of Contas)
     }
 }
 
-//função que altera os itens da navegação dependendo do estado de login
-function atualizarNav()
-{
-    if(ContaLogada === undefined)
-    {
-        document.getElementById('listaNav').
+//definir botões
+btn_registrar = document.getElementById('btn_registrar');
+btn_fechar_registro = document.getElementById('btn_fechar_registro')
 
+//definir elementos
+modal_registro = document.getElementById('modal_registro');
 
-        document.getElementById('listaNav').innerHTML =
-        `<li class="nav-item">
-            <a class="nav-link deslogado" href="cadastro.html">Cadastrar</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link deslogado" href="login.html">Fazer login</a>
-        </li>`
+//definir eventos
+btn_registrar.addEventListener('click',toggle_modal_registro);
+btn_fechar_registro.addEventListener('click',toggle_modal_registro);
 
-        btnAdicionar.classList.add('d-none')
+//funcões
+function toggle_modal_registro(){
+    if(modal_registro.classList.contains('d-none')){
+        modal_registro.classList.remove('d-none');
     }
-    else
-    {
-        document.getElementById('listaNav').innerHTML =
-        `<li class="nav-item text-white my-auto me-3">
-            <button id="btnPerfil" class="btn btn-md btn-dark"><i class="bi-person-circle me-2"></i><a>${ContaLogada.usuario}</a></button>
-            <div id="perfilDropdown" class="perfilDropdown hide position-fixed bg-gray text-center">
-                <ul class="list-unstyled text-start">
-                    <li><a onclick="logout()" class="text-decoration-none text-white" href="#"><i class='bi-box-arrow-left me-2'></i>Fazer Logout</a></li>
-                </ul>
-            </div>
-        </li>`
+    else{
+        modal_registro.classList.add('d-none')
     }
 }
 
@@ -99,5 +80,5 @@ function validar(){
         valido = false;
     if(autor.value == '')
         valido = false;
-    
+
 }
