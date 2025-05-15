@@ -19,7 +19,7 @@
 }
 
 .navbar-bg{
-    background-color: rgb(73, 29, 194);;
+    background-image: linear-gradient(rgb(110, 68, 224), rgb(73, 29, 194));
 }
 
 .perfilDropdown
@@ -57,7 +57,7 @@
 
 .max-tamanho-modal
 {
-    max-width: 800px;
+    max-width: 600px;
     max-height: 800px;
 }
 

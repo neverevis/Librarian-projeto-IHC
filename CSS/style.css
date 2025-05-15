@@ -13,8 +13,8 @@
   }
 
   .navbar-bg{
-    background-color: rgb(73, 29, 194);;
-  }
+    background-image: linear-gradient(rgb(110, 68, 224), rgb(73, 29, 194));
+}
 
   .gray
   {
