@@ -6,7 +6,7 @@
 
 .bg-gradient-dark
 {
-    background-image: linear-gradient(rgb(26, 26, 26), rgb(24, 24, 24));
+    background-image: linear-gradient(rgb(52, 1, 119), rgb(12, 0, 54));
 }
 
 .zoomhover
@@ -97,4 +97,18 @@
 {
     text-align: justify;
     text-justify: inter-word;
+}
+
+.img-capa{
+    width: 17rem;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    object-fit: cover;
+}
+
+.card-size{
+    max-width: 270px;
 }

@@ -31,11 +31,14 @@ btn_enviar_registro = document.getElementById('btn_enviar_registro')
 //definir elementos
 modal_registro = document.getElementById('modal_registro');
 catalogo = document.getElementById('catalogo');
+input_pesquisa = document.getElementById('pesquisa');
 
 //definir eventos
 btn_registrar.addEventListener('click',toggle_modal_registro);
 btn_fechar_registro.addEventListener('click',toggle_modal_registro);
 btn_enviar_registro.addEventListener('click',adicionar);
+
+input_pesquisa.addEventListener('input',filtrar)
 
 //funcões
 function toggle_modal_registro(){
@@ -51,16 +54,17 @@ function toggle_modal_registro(){
 function adicionar()
 {
     titulo = document.getElementById('titulo');
-    titulo = document.getElementById('ano');
-    titulo = document.getElementById('autor');
-    titulo = document.getElementById('categoria');
-    titulo = document.getElementById('capa');
-    titulo = document.getElementById('edicao');
+    ano = document.getElementById('ano');
+    autor = document.getElementById('autor');
+    categoria = document.getElementById('categoria');
+    capa = document.getElementById('capa');
+    edicao = document.getElementById('edicao');
 
     if(validar() === true)
     {
         let Livro =
         {
+            id: crypto.randomUUID(),
             titulo: titulo.value,
             ano: ano.value,
             autor: autor.value,
@@ -93,20 +97,47 @@ function validar(){
 }
 
 function atualizar_catalogo(lista){
+    catalogo.innerHTML = '';
+
     if(lista.length > 0){
+        for(let item of lista){
+
+            card = document.createElement('div');
+            card.classList.add("card","bg-transparent","m-0","px-2","mb-2","border-0","card-size");
+
+            card.innerHTML +=   `
+                                <img src= "${item.capa}" class="card-img-top round-2" alt="Capa do filme" style="width: 100%; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center mb-0 text-white">${item.titulo}</h5>
+                                </div>
+                                `
+
+            catalogo.appendChild(card)
+
+            btn_excluir = document.createElement("button");
+            btn_excluir.classList.add("btn","btn-danger");
+            btn_excluir.innerHTML = `<i class="bi bi-trash-fill"></i>`
+            card.appendChild(btn_excluir)
+            btn_excluir.addEventListener("click", ()=> 
+                {
+                    Livros = Livros.filter(livro => livro.id !== item.id);
+                    filtrar();
+                    localStorage.setItem('Livros',JSON.stringify(Livros))
+
+                })
+        }
 
     }else{
-        mensagem = document.createElement('p');
-        mensagem.classList.add('text-muted')
-        mensagem.textContent = "Não há livros a serem exibidos aqui";
-        
-        mensagem1 = document.createElement('p');
-        mensagem1.classList.add('text-muted');
-        mensagem1.textContent = "Não há livros a serem exibidos aqui";
-
-        catalogo.appendChild(mensagem);
-        catalogo.appendChild(mensagem1);
+        document.getElementById('mensagem_catalogo').classList.add('d-none');
     }
+}
+
+function filtrar(){
+    input = pesquisa.value;
+    
+    catalogo_filtrado = Livros.filter(livro => livro.titulo.toLowerCase().includes(input.toLowerCase()))
+
+    atualizar_catalogo(catalogo_filtrado);
 }
 
 atualizar_catalogo(Livros)
