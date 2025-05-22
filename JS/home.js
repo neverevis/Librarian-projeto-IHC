@@ -33,10 +33,13 @@ for(conta of Contas)
         document.getElementById('btn_login').classList.add('d-none')
 
         break;
-    }else{
-        document.getElementById('btn_comentar').classList.add('disabled')
-        document.getElementById('btn_comentar').textContent = "Enviar"
     }
+}
+
+if(ContaLogada === null)
+{
+    document.getElementById('btn_comentar').classList.add('disabled')
+    document.getElementById('btn_comentar').textContent = "Enviar"
 }
 
 //definir botões
