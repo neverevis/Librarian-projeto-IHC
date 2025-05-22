@@ -12,38 +12,52 @@
 <body class="d-flex flex-column min-vh-100 bg-gradient-dark">
 
     <nav class="navbar navbar-dark navbar-bg navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand text-white" href="home.html">
-              <div class="d-flex d-inline justify-content-center align-items-center">
-                  <i class="bi-book"></i>
-                  <h5 class="px-2 pt-1">Librarian</h5>
-              </div>
+  <div class="container">
+    <a class="navbar-brand text-white" href="home.html">
+      <div class="d-flex d-inline justify-content-center align-items-center">
+        <i class="bi-book"></i>
+        <h5 class="px-2 pt-1">Librarian</h5>
+      </div>
+    </a>
+
+    <!-- Botão de expandir (quando colapsar) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="bi-list text-white"></i>
+    </button>
+
+    <!-- Compatibilidade com colapso para telas pequenas -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+            <!-- Itens de navegação -->
+            <li id="btn_cadastrar" class="nav-item">
+            <a class="nav-link deslogado" href="cadastro.html">Cadastrar</a>
+            </li>
+            <li id="btn_login" class="nav-item">
+            <a class="nav-link deslogado" href="login.html">Fazer login</a>
+            </li>
+
+            <!-- Ícone de perfil com dropdown -->
+            <li id="btn_conta" class="nav-item dropdown logado d-none">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i>
+                <span id="usuario-nome">Usuário</span>
             </a>
-  
-            <!--Botão de expandir (quando colapsar)-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="bi-list text-white"></i>
-            </button>
-  
-            <!-- Compatibilidade com colapso para telas pequenas-->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-  
-              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-  
-              <!--Itens de navegação-->
-              <li class="nav-item">
-                  <a class="nav-link deslogado" href="cadastro.html">Cadastrar</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link deslogado" href="login.html">Fazer login</a>
-              </li>
-  
-              </ul>
-  
-            </div>
-  
-          </div>
-      </nav>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li id="btn_logout"><a class="dropdown-item">Fazer logout</a></li>
+            </ul>
+            </li>
+
+        </ul>
+
+        </div>
+    </div>
+    </nav>
+
 
       <div class="container text-white position-fixed start-100 top-0">
         <ul>
@@ -51,14 +65,24 @@
         </ul>
       </div>
 
+    
     <main class="container-fluid mt-3">
-        <!--Aba de ferramentas-->
+        <!-- aba de ferramentas -->
         <section class="row d-flex justify-content-center">
-            <div class="col-9 col-lg-4 offset-lg-2">
-                <input id="pesquisa" class="form-control" type="text" placeholder="Pesquisar">
-            </div>
+            <div class="col-12 col-lg-8 d-flex gap-3">
+                <!-- botões alternáveis -->
+                <div id="exibir" class="btn-group d-none" role="group" aria-label="Filtros de livros">
+                    <input type="radio" class="btn-check" name="filtro" id="todos" autocomplete="off" checked>
+                    <label id="btn_todos" class="btn btn-outline-primary" for="todos">Todos os Livros</label>
 
-            <div class="col-2">
+                    <input type="radio" class="btn-check" name="filtro" id="colecao" autocomplete="off">
+                    <label id="btn_colecao" class="btn btn-outline-primary" for="colecao">Minha Coleção</label>
+                </div>
+
+                <!-- campo de pesquisa -->
+                <input id="pesquisa" class="form-control flex-grow-1" type="text" placeholder="Pesquisar">
+
+                <!-- botão de registrar -->
                 <button id="btn_registrar" class="btn btn-success"><i class="bi-plus-lg"></i></button>
             </div>
         </section>
@@ -66,17 +90,14 @@
         <section class="container-fluid mt-4">
             <p id="mensagem_catalogo" class="d-none text-muted d-flex justify-content-center">Não há livros a serem exibidos aqui...</p>
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5" id="catalogo">
-
-            <!-- Card dos livros serão adicionados aqui pelo script -->
-
+                <!-- Card dos livros serão adicionados aqui pelo script -->
             </div>
-
         </section>
     </main>
 
     <footer class="bg-dark text-white mt-auto d-flex align-items-center">
 
-            <p>© 2024 Trabalho de PGW2</p>
+            <p>© 2025 Trabalho de VVET/IHCP</p>
 
     </footer>
 
@@ -160,9 +181,52 @@
         </div>
     </div>
 
-    <!--Modal do filme -->
-    <div id="modal-filme" class="bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center d-none">
+    <!--Modal do livro -->
+    <div id="modal_livro" class="bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center d-none">
+        <div class="container position-relative bg-dark rounded-3 max-tamanho-modal text-white">
+            
+        <div class='modal-body p-0 pb-5 overflow-auto max-tamanho-modal'>
+            <div class='card dark m-5'>
+                <img class="bg-dark rounded-3" src="${filtrar()[i].imagem}">
+            </div>
 
+            <h5 class="text-center mb-5">Titulo</h5>
+
+            <div class='row mx-1'>
+                <div class='col-7 bg-escuro p-3 rounded-start'>
+                    <p class='textopequeno text-center'>Sinopse:</p>
+                    <p class='textopequeno justificado'>sinopse</p>
+                </div>
+
+                <div class='col-5 bg-escuro-plus rounded-end p-3'>
+                    <p class='textopequeno text-center'>Informações:</p>
+                    <div class='d-flex d-inline'>
+                        <p class='textopequeno mb-1'>Categoria:</p>
+                        <p class='textopequeno ms-2 mb-2 text-secondary'>categoria</p>
+                    </div>
+                    <div class='d-flex d-inline'>
+                        <p class='textopequeno mb-1'>Duração:</p>
+                        <p class='textopequeno ms-3 mb-2 text-secondary'>autor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row mt-5'>
+                <h5 class='text-center'>Comentários</h5>
+                <div id='comentarios' class='container p-5'>
+                    
+                </div>
+                <div class='col-9 offset-1'>
+                    <input type='text' id='caixaComentario' class='form-control' placeholder='Digitar comentário...'></input>
+                </div>
+                <div class='col-1'>
+                    <button id='btnComentario' class='btn btn-primary'>Enviar</button>
+                </div>
+            </div>
+        </div>
+        <button id="btn_fechar_modal_livro" class="btn-close btn-close-white position-absolute top-0 end-0 p-3"></button>
+            
+    </div>
     </div>
 
     <!--Modal de exclusão -->

@@ -131,7 +131,7 @@ function cadastrar()
             usuario: usuario,
             senha: senhaA,
             login: false,
-            filmes: []
+            colecao: []
         }
 
         console.log(Cadastro)
