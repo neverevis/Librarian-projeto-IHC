@@ -118,6 +118,13 @@
                 </div>
 
                 <div class="col-12">
+                    <label class="form-label" for="text">Sinopse</label>
+                </div>
+                <div class="col-12">
+                    <input id="sinopse" class="form-control" type="text">
+                </div>
+
+                <div class="col-12">
                     <label class="form-label" for="text">Ano</label>
                 </div>
                 <div class="col-12">
@@ -186,61 +193,77 @@
         <div class="container position-relative bg-dark rounded-3 max-tamanho-modal text-white">
             
         <div class='modal-body p-0 pb-5 overflow-auto max-tamanho-modal'>
-            <div class='card dark m-5'>
-                <img class="bg-dark rounded-3" src="${filtrar()[i].imagem}">
+            <h5 id="titulo_field" class="my-4 text-center">Titulo</h5>
+            <div class='dark m-5 d-flex justify-content-center'>
+                <img id="capa_field" class="bg-dark rounded-3 img-capa-display" src="SRC DA IMAGEM">
             </div>
-
-            <h5 class="text-center mb-5">Titulo</h5>
 
             <div class='row mx-1'>
                 <div class='col-7 bg-escuro p-3 rounded-start'>
                     <p class='textopequeno text-center'>Sinopse:</p>
-                    <p class='textopequeno justificado'>sinopse</p>
+                    <p id="sinopse_field" class='textopequeno justificado'>sinopse</p>
                 </div>
 
                 <div class='col-5 bg-escuro-plus rounded-end p-3'>
                     <p class='textopequeno text-center'>Informações:</p>
                     <div class='d-flex d-inline'>
                         <p class='textopequeno mb-1'>Categoria:</p>
-                        <p class='textopequeno ms-2 mb-2 text-secondary'>categoria</p>
+                        <p id="categoria_field" class='textopequeno ms-2 mb-2 text-secondary'>categoria</p>
                     </div>
                     <div class='d-flex d-inline'>
-                        <p class='textopequeno mb-1'>Duração:</p>
-                        <p class='textopequeno ms-3 mb-2 text-secondary'>autor</p>
+                        <p class='textopequeno mb-1'>Autor:</p>
+                        <p id="autor_field" class='textopequeno ms-3 mb-2 text-secondary'>autor</p>
+                    </div>
+                    <div class='d-flex d-inline'>
+                        <p class='textopequeno mb-1'>Edição:</p>
+                        <p id="edicao_field" class='textopequeno ms-3 mb-2 text-secondary'>0000</p>
+                    </div>
+                    <div class='d-flex d-inline'>
+                        <p class='textopequeno mb-1'>Ano</p>
+                        <p id="ano_field" class='textopequeno ms-3 mb-2 text-secondary'>0000</p>
                     </div>
                 </div>
             </div>
 
             <div class='row mt-5'>
                 <h5 class='text-center'>Comentários</h5>
-                <div id='comentarios' class='container p-5'>
-                    
+                <div id='comentarios_field' class='container p-5'>
+
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="bg-escuro p-3 rounded-3 w-100">
+                            <p class="mb-1 fw-bold text-white"><i class="bi bi-person-circle"> </i> Nome do Usuário</p>
+                            <p class="textopequeno text-secondary mb-0">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class='col-9 offset-1'>
-                    <input type='text' id='caixaComentario' class='form-control' placeholder='Digitar comentário...'></input>
+                    <input type='text' id='comentario_input' class='form-control' placeholder='Digitar comentário...'></input>
                 </div>
                 <div class='col-1'>
-                    <button id='btnComentario' class='btn btn-primary'>Enviar</button>
+                    <button id='btn_comentar' class='btn btn-primary'>Enviar</button>
                 </div>
             </div>
         </div>
         <button id="btn_fechar_modal_livro" class="btn-close btn-close-white position-absolute top-0 end-0 p-3"></button>
             
-    </div>
+        </div>
     </div>
 
     <!--Modal de exclusão -->
-    <div id="modal-excluir" class="bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center d-none">
+    <div id="modal_excluir" class="bg-modal position-fixed start-0 top-0 w-100 h-100 d-flex justify-content-center align-items-center d-none">
         <div class="container-flex p-4 rounded-3 bg-dark text-white">
             <div class="row mb-3">
                 <h5>Deseja mesmo excluir este item?</h5>
             </div>
-            <div class="row d-flex justify-content-center" id="btnConfirmar">
+            <div class="row d-flex justify-content-center">
                 <div class="col-3">
-                    <button class="btn btn-success">Sim</button>
+                    <button id="btn_sim_excluir" class="btn btn-success">Sim</button>
                 </div>
                 <div class="col-3">
-                    <button class="btn btn-danger">Não</button>
+                    <button id="btn_nao_excluir" class="btn btn-danger">Não</button>
                 </div>
             </div>
         </div>

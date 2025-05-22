@@ -33,6 +33,9 @@ for(conta of Contas)
         document.getElementById('btn_login').classList.add('d-none')
 
         break;
+    }else{
+        document.getElementById('btn_comentar').classList.add('disabled')
+        document.getElementById('btn_comentar').textContent = "Enviar"
     }
 }
 
@@ -43,14 +46,27 @@ btn_enviar_registro = document.getElementById('btn_enviar_registro')
 btn_logout = document.getElementById('btn_logout')
 btn_todos = document.getElementById('btn_todos')
 btn_colecao = document.getElementById('btn_colecao')
+btn_nao_excluir = document.getElementById('btn_nao_excluir')
+btn_sim_excluir = document.getElementById('btn_sim_excluir')
 
 //definir elementos
 modal_registro = document.getElementById('modal_registro');
+modal_excluir = document.getElementById('modal_excluir');
 catalogo = document.getElementById('catalogo');
 input_pesquisa = document.getElementById('pesquisa');
 modal_livro = document.getElementById('modal_livro')
 btn_fechar_modal_livro = document.getElementById('btn_fechar_modal_livro')
+btn_comentar = document.getElementById('btn_comentar')
 capa_livro = document.getElementById('capa_livro')
+comentario_input = document.getElementById('comentario_input')
+
+titulo_field = document.getElementById('titulo_field')
+sinopse_field = document.getElementById('sinopse_field')
+categoria_field = document.getElementById('categoria_field')
+autor_field = document.getElementById('autor_field')
+edicao_field = document.getElementById('edicao_field')
+ano_field = document.getElementById('ano_field')
+comentarios_field = document.getElementById('comentarios_field')
 
 //definir eventos
 btn_registrar.addEventListener('click',toggle_modal_registro);
@@ -60,6 +76,7 @@ btn_logout.addEventListener('click',logout)
 btn_todos.addEventListener('click',filtrarTodos)
 btn_colecao.addEventListener('click',filtrarColecao)
 btn_fechar_modal_livro.addEventListener('click',toggleModalLivro)
+btn_nao_excluir.addEventListener('click',toggleModalExcluir)
 
 input_pesquisa.addEventListener('input',filtrar)
 
@@ -87,6 +104,7 @@ function toggle_modal_registro(){
 function adicionar()
 {
     titulo = document.getElementById('titulo');
+    sinopse = document.getElementById('sinopse');
     ano = document.getElementById('ano');
     autor = document.getElementById('autor');
     categoria = document.getElementById('categoria');
@@ -99,13 +117,15 @@ function adicionar()
         {
             id: crypto.randomUUID(),
             titulo: titulo.value,
+            sinopse: sinopse.value,
             ano: ano.value,
             autor: autor.value,
             categoria: categoria.value,
             prioridade: 0,
             capa: capa.value,
             edicao: edicao.value,
-            review: []
+            review: [],
+            comentarios: []
         }
 
         Livros.push(Livro);
@@ -138,7 +158,7 @@ function atualizar_catalogo(lista){
             let esta_na_colecao = false;
 
             if(ContaLogada !== null){
-                for(livro of ContaLogada.colecao){
+                for(let livro of ContaLogada.colecao){
                     if(livro.id === item.id)
                         esta_na_colecao = true;
                 }
@@ -148,10 +168,8 @@ function atualizar_catalogo(lista){
             card.classList.add("card", "bg-transparent", "m-0", "px-2", "mb-2", "border-0", "card-size");
 
             let capa = document.createElement('img');
-            capa.classList.add("card-img-top", "round-2");
+            capa.classList.add("img-capa", "round-2","ms-2");
             capa.src = item.capa
-            capa.style.width = '100%';
-            capa.style.objectFit = 'cover';
 
             card.appendChild(capa)
 
@@ -166,20 +184,20 @@ function atualizar_catalogo(lista){
             div_botoes.classList.add("d-flex", "gap-2", "px-2", "pb-2");
 
             let btn_excluir = document.createElement("button");
-            btn_excluir.classList.add("btn", "btn-danger", "w-50");
-            btn_excluir.innerHTML = `Excluir <i class="bi bi-trash-fill"></i>`;
+            btn_excluir.classList.add("btn", "btn-danger", "w-50","p-0","m-0");
+            btn_excluir.innerHTML = `<p class="textopequeno mt-2">Excluir <i class="bi bi-trash-fill"></i></p>`;
 
             let btn_adicionar_colecao = document.createElement("button");
             if(ContaLogada === null)
                 btn_adicionar_colecao.classList.add('disabled')
 
             if(!esta_na_colecao){
-                btn_adicionar_colecao.innerHTML = `Adicionar na coleção <i class="bi bi-bookmark"></i>`;
-                btn_adicionar_colecao.classList.add("btn", "btn-success", "w-50");
+                btn_adicionar_colecao.innerHTML = `<p class="textopequeno mt-2">Adicionar a coleção <i class="bi bi-bookmark"></i></p>`;
+                btn_adicionar_colecao.classList.add("btn", "btn-success", "w-50","p-0","m-0");
             }
             else{
-                btn_adicionar_colecao.innerHTML = `Remover da coleção <i class="bi bi-bookmark-check-fill"></i>`;
-                btn_adicionar_colecao.classList.add("btn", "btn-warning", "w-50");
+                btn_adicionar_colecao.innerHTML = `<p class="textopequeno mt-2">Remover da coleção <i class="bi bi-bookmark-check-fill"></i></p>`;
+                btn_adicionar_colecao.classList.add("btn", "btn-warning", "w-50","p-0","m-0");
 
             }
 
@@ -189,12 +207,43 @@ function atualizar_catalogo(lista){
             card.appendChild(div_botoes);
             catalogo.appendChild(card);
 
-            capa.addEventListener('click', toggleModalLivro)
+            capa.addEventListener('click', () => {
+                toggleModalLivro();
+
+                capa_field.src = item.capa
+                titulo_field.textContent = item.titulo
+                sinopse_field.textContent = item.sinopse
+                categoria_field.textContent = item.categoria
+                autor_field.textContent = item.autor
+                edicao_field.textContent = item.edicao
+                ano_field.textContent = item.ano
+
+                atualizar_comentarios(item)
+                
+
+                btn_comentar.onclick = function(){
+                    let comentarioAtual = {
+                        usuario: ContaLogada.usuario,
+                        conteudo: comentario_input.value
+                    }
+
+                    item.comentarios.push(comentarioAtual)
+                    localStorage.setItem('Livros', JSON.stringify(Livros));
+                    localStorage.setItem('Contas', JSON.stringify(Contas));
+
+                    atualizar_comentarios(item)
+                }
+            })
 
             btn_excluir.addEventListener("click", () => {
-                Livros = Livros.filter(livro => livro.id !== item.id);
-                filtrar();
-                localStorage.setItem('Livros', JSON.stringify(Livros));
+                toggleModalExcluir();
+
+                btn_sim_excluir.onclick = function(){
+                    Livros = Livros.filter(livro => livro.id !== item.id);
+                    filtrar();
+                    localStorage.setItem('Livros', JSON.stringify(Livros));
+                    toggleModalExcluir()
+                }
             });
 
             if (ContaLogada !== null && !esta_na_colecao) {
@@ -202,6 +251,8 @@ function atualizar_catalogo(lista){
                     let livro = {
                         id: item.id,
                         titulo: item.titulo,
+                        comentarios: item.comentarios,
+                        sinopse: item.sinopse,
                         ano: item.ano,
                         autor: item.autor,
                         categoria: item.categoria,
@@ -252,6 +303,25 @@ function filtrarColecao(){
 
 function toggleModalLivro(){
     modal_livro.classList.toggle('d-none')
+}
+
+function toggleModalExcluir(){
+    modal_excluir.classList.toggle('d-none')
+}
+
+function atualizar_comentarios(item){
+    comentarios_field.innerHTML = ''
+    for(comentario of item.comentarios){
+        comentarios_field.innerHTML += 
+        `<div class="d-flex align-items-start mb-4">
+            <div class="bg-escuro p-3 rounded-3 w-100">
+                <p class="mb-1 fw-bold text-white"><i class="bi bi-person-circle"> </i> ${comentario.usuario}</p>
+                <p class="textopequeno text-secondary mb-0">
+                ${comentario.conteudo}
+                </p>
+            </div>
+        </div>`
+    }
 }
 
 atualizar_catalogo(Livros)
