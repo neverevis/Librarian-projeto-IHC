@@ -63,6 +63,7 @@ function login()
 
 function exibir()
 {
+    console.log("funcionou")
     let botao = document.getElementById('exibirSenha');
     let olho = document.getElementById('olho');
     let senha = document.getElementById('senha');

@@ -78,6 +78,7 @@ btn_enviar_registro.addEventListener('click',adicionar);
 btn_logout.addEventListener('click',logout)
 btn_todos.addEventListener('click',filtrarTodos)
 btn_colecao.addEventListener('click',filtrarColecao)
+btn_wishlist.addEventListener('click',filtrarWishlist)
 btn_fechar_modal_livro.addEventListener('click',toggleModalLivro)
 btn_nao_excluir.addEventListener('click',toggleModalExcluir)
 
@@ -126,6 +127,7 @@ function adicionar()
             categoria: categoria.value,
             prioridade: 0,
             capa: capa.value,
+            wishlist: false,
             edicao: edicao.value,
             review: [],
             comentarios: []
@@ -288,8 +290,13 @@ function filtrar(){
     
     if(opt === 1)
         catalogo_filtrado = Livros.filter(livro => livro.titulo.toLowerCase().includes(input.toLowerCase()))
-    else
+    else if(opt === 2)
         catalogo_filtrado = ContaLogada.colecao.filter(livro => livro.titulo.toLowerCase().includes(input.toLowerCase()))
+    else{
+        catalogo_filtrado = ContaLogada.colecao.filter(livro => livro.titulo.toLowerCase().includes(input.toLowerCase()))
+        catalogo_filtrado.filter(livro => (livro.wishlist === true))
+    }
+
 
     atualizar_catalogo(catalogo_filtrado);
 }
@@ -301,6 +308,11 @@ function filtrarTodos(){
 
 function filtrarColecao(){
     opt = 2;
+    filtrar();
+}
+
+function filtrarWishlist(){
+    opt = 3;
     filtrar();
 }
 

@@ -156,7 +156,29 @@ function cadastrar()
     }
 }
 
+function exibir()
+{
+    let botao = document.getElementById('exibirSenha');
+    let olho = document.getElementById('olho');
+
+    if(botao.className == 'btn btn-outline-default')
+    {
+        senhaA.setAttribute('type','text');
+        senhaB.setAttribute('type','text')
+        botao.setAttribute('class','btn btn-dark')
+        olho.setAttribute('class', 'bi-eye-fill')
+    }
+    else
+    {
+        senhaA.setAttribute('type','password');
+        senhaB.setAttribute('type','password')
+        botao.setAttribute('class','btn btn-outline-default')
+        olho.setAttribute('class', 'bi-eye-slash-fill')
+    }
+}
+
 document.getElementById("cadastrar").addEventListener('click', cadastrar);
 document.getElementById('usuario').addEventListener('input', validar)
 document.getElementById('senhaA').addEventListener('input', validar)
 document.getElementById('senhaB').addEventListener('input', validar)
+document.getElementById("exibirSenha").addEventListener('click', exibir)

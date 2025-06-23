@@ -70,6 +70,14 @@
         <!-- aba de ferramentas -->
         <section class="row d-flex justify-content-center">
             <div class="col-12 col-lg-8 d-flex gap-3">
+
+                <!-- campo de pesquisa -->
+                <input id="pesquisa" class="form-control flex-grow-1" type="text" placeholder="Pesquisar">
+
+                <!-- botão de registrar -->
+                <button id="btn_registrar" class="btn btn-success"><i class="bi-plus-lg"></i></button>
+            </div>
+            <div class="col-12 col-lg-8 d-flex gap-3 justify-content-center pt-3">
                 <!-- botões alternáveis -->
                 <div id="exibir" class="btn-group d-none" role="group" aria-label="Filtros de livros">
                     <input type="radio" class="btn-check" name="filtro" id="todos" autocomplete="off" checked>
@@ -77,13 +85,10 @@
 
                     <input type="radio" class="btn-check" name="filtro" id="colecao" autocomplete="off">
                     <label id="btn_colecao" class="btn btn-outline-primary" for="colecao">Minha Coleção</label>
+
+                    <input type="radio" class="btn-check" name="filtro" id="wishlist" autocomplete="off">
+                    <label id="btn_wishlist" class="btn btn-outline-primary" for="wishlist">Lista de Desejos</label>
                 </div>
-
-                <!-- campo de pesquisa -->
-                <input id="pesquisa" class="form-control flex-grow-1" type="text" placeholder="Pesquisar">
-
-                <!-- botão de registrar -->
-                <button id="btn_registrar" class="btn btn-success"><i class="bi-plus-lg"></i></button>
             </div>
         </section>
 
