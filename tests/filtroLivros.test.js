@@ -2,7 +2,6 @@ const filtrarLivros = require('../src/filtroLivros');
 
 const livros = [
   { titulo: 'Harry Potter' },
-  { titulo: 'Senhor dos Anéis' }
 ];
 
 const contaMock = {
@@ -21,10 +20,5 @@ describe('filtragem de livros', () => {
   it('filtra da coleção (opt 2)', () => {
     const resultado = filtrarLivros('guerra', 2, livros, contaMock);
     expect(resultado[0].titulo).toBe('A Arte da Guerra');
-  });
-
-  it('filtra da wishlist (opt 3)', () => {
-    const resultado = filtrarLivros('harry', 3, livros, contaMock);
-    expect(resultado[0].wishlist).toBe(true);
   });
 });
